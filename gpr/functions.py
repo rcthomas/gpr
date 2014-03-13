@@ -132,7 +132,7 @@ class AnisotropicSquaredExponentialCovariance ( CovarianceFunction ) :
 
     @property
     def hyperparameters( self ) :
-        return collections.deque( [ self.amplitude ] + self.length_scales.tolist )
+        return collections.deque( [ self.amplitude ] + self.length_scales.tolist() )
 
     def take_hyperparameters( self, deque ) :
         self.amplitude = deque.popleft()
