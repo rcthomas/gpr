@@ -120,6 +120,25 @@ class IsotropicSquaredExponentialCovariance ( CovarianceFunction ) :
         self.amplitude    = deque.popleft()
         self.length_scale = deque.popleft()
 
+class AnisotropicSquaredExponentialCovariance ( CovarianceFunction ) :
+
+    def __init__( self, amplitude, length_scales ) :
+        self.amplitude     = amplitude
+        self.length_scales = length_scales
+
+    def __call__( self, input_diffs ) :
+        scaled_diffs = input_diffs / self.length_scales
+        return self.amplitude ** 2 * scipy.exp( - scipy.sum( scaled_diffs ** 2, 2 ) )
+
+    @property
+    def hyperparameters( self ) :
+        return collections.deque( [ self.amplitude ] + self.length_scales.tolist )
+
+    def take_hyperparameters( self, deque ) :
+        self.amplitude = deque.popleft()
+        for i in range( len( self.length_scales ) ) :
+            self.length_scales[ i ] = deque.popleft()
+
 class IsotropicMaternCovariance_3_2 ( CovarianceFunction ) :
 
     def __init__( self, amplitude, length_scale ) :
