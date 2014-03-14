@@ -15,7 +15,8 @@ import gpr.functions
 import gpr.models
 import gpr.trainers
 
-# Create a fake data set.
+# Create a fake data set.  In practice the user should subclass
+# gpr.interface.DataSet and this could handle standardization.
 
 inputs     = scipy.linspace( -1.0, 1.0 )
 responses  = 1.0 + inputs + scipy.sin( 2.5 * scipy.pi * inputs ) + scipy.random.normal( scale = 0.1, size = len( inputs ) )
@@ -45,7 +46,7 @@ trainer = gpr.trainers.BasinHoppingTrainer()
 
 print trainer( model )
 
-# Model that predicts the output
+# Prediction model for the underlying signal based on trained components.
 
 pred_gaussian_process = gpr.GaussianProcess( mean_function, covariance_1 )
 pred_model            = gpr.models.BasicModel( pred_gaussian_process, data_set )
