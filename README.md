@@ -16,7 +16,7 @@ are further down in this README.
 
 * Get data.
 * Wash hands.
-* Put data into instantiation of a subclass of gpr.interface.DataSet.
+* Put data into instantiation of a subclass of `gpr.interface.DataSet`.
 * Construct a mean function and a covariance function.
 * Construct a GP taking the mean and covariance functions.
 * Construct a model based on the GP and the (training) data.
@@ -34,7 +34,13 @@ pre-built parts to combine out of the box.
 
     import gpr
 
-provides the main Gaussian process class.
+provides the main Gaussian process class.  Another important import
+is of interfaces which users may subclass.  Most important in here 
+is DataSet.  Just do
+
+    import gpr.interface
+
+to get the interface module.  Next, 
 
     import gpr.data_sets
 
