@@ -164,7 +164,7 @@ Hyperparameters are passed to individual functions py placing them into a
 `collections.deque` object and passing that to the function's
 `take_hyperparameters()` method.  Hyperparameters are read from the front of
 the deque. Hyperparameter settings for a function may be read by calling the
-`hyperparameters()` property, which returns a `collections.deque` object.
+`hyperparameters` property, which returns a `collections.deque` object.
 
 If a function is an operator, the hyperparameters are distributed to the
 operands functions such that the first operand takes its hyperparameters and
