@@ -1,10 +1,27 @@
 gpr
 ===
 
-Simple Python package for Gaussian process regression problems.  Depends
+Simple Python package for Gaussian process (GP) regression problems.  Depends
 on scipy.
 
-imports
+Basic Workflow
+--------------
+
+The basic workflow this package supports looks like this.  More details
+are further down in this README.
+
+* Get data.
+* Put data into instantiation of a subclass of gpr.interface.DataSet.
+* Construct a mean function and a covariance function.
+* Construct a GP taking the mean and covariance functions.
+* Construct a model based on the GP and the (training) data.
+* Construct a trainer and train the model.
+* Predict data.
+
+Standardization of the training data and test data are up to you, but
+the DataSet class may be able to handle this for you.  
+
+Imports
 -------
 
 This package exposes useful interfaces but also provides a number of 
