@@ -5,7 +5,7 @@ import collections
 
 import scipy
 
-from interface import Function
+from ..interface import Function
 
 class MeanFunction ( Function ) :
     pass

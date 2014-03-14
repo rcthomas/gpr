@@ -1,7 +1,7 @@
 
 # Operator functions are used to combine other functions.
 
-from interface import Function
+from ..interface import Function
 
 class Operator ( Function ) :
 
