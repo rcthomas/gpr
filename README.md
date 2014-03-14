@@ -43,7 +43,8 @@ classes.  Just a basic data set.  We will construct it from a sine
 function plus a linear function with a dash of noise.
 
     inputs     = scipy.linspace( -1.0, 1.0 )
-    responses  = 1.0 + inputs + scipy.sin( 2.5 * scipy.pi * inputs ) + scipy.random.normal( scale = 0.1, size = len( inputs ) )
+    responses  = 1.0 + inputs + scipy.sin( 2.5 * scipy.pi * inputs ) + 
+        scipy.random.normal( scale = 0.1, size = len( inputs ) )
     covariance = 0.01 * scipy.eye( len( inputs ) )
     
     data_set = gpr.data_sets.BasicDataSet( inputs[ :, None ], responses, covariance )
@@ -64,9 +65,13 @@ covariance functions, but don't mix them.
 Try a polynomial mean function and squared exponential covariance 
 plus noise.
 
-    mean_function = gpr.functions.PolynomialMean( [ 1.0, data_set.responses.mean() ] )
-    covariance_1  = gpr.functions.IsotropicSquaredExponentialCovariance( data_set.responses.std(), scipy.mean( inputs[ 1 : ] - inputs[ : -1 ] ) )
-    covariance_2  = gpr.functions.GaussianWhiteNoiseCovariance( 0.01 * data_set.responses.std() )
+    mean_response = data_set.responses.mean()
+    std_response  = data_set.responses.std()
+    input_spacing = scipy.mean( inputs[ 1 : ] - inputs[ : -1 ] )
+
+    mean_function = gpr.functions.PolynomialMean( [ 1.0, mean_response ] )
+    covariance_1  = gpr.functions.IsotropicSquaredExponentialCovariance( std_response, input_spacing )
+    covariance_2  = gpr.functions.GaussianWhiteNoiseCovariance( 0.01 * std_response )
     cov_function  = gpr.functions.Sum( covariance_1, covariance_2 )
 
 Note the mean and covariance functions are initialized with some 
@@ -117,7 +122,9 @@ Gaussian white noise piece out and just look at the squared exponential.
     # Plot.
 
     for i in range( 1, 4 ) :
-        plt.fill_between( inputs, pred_responses - i * pred_sigma, pred_responses + i * pred_sigma, alpha = 0.1 )
+        lower = pred_responses - i * pred_sigma
+        upper = pred_responses + i * pred_sigma
+        plt.fill_between( inputs, lower, upper, alpha = 0.1 )
     plt.plot( inputs, pred_responses )
     plt.scatter( inputs, responses )
     plt.show()
