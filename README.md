@@ -11,6 +11,7 @@ The basic workflow this package supports looks like this.  More details
 are further down in this README.
 
 * Get data.
+* Wash hands.
 * Put data into instantiation of a subclass of gpr.interface.DataSet.
 * Construct a mean function and a covariance function.
 * Construct a GP taking the mean and covariance functions.
