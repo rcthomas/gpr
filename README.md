@@ -2,7 +2,11 @@ gpr
 ===
 
 Simple Python package for Gaussian process (GP) regression problems.  Depends
-on scipy.
+on scipy.  Just do
+
+    python setup.py install
+
+To have python run setup.py which installs.
 
 Basic Workflow
 --------------
