@@ -156,3 +156,25 @@ The Code
 
 Refer to the example codes.  The code presented here is based on the 1D example
 script.
+
+Hyperparameters
+---------------
+
+Hyperparameters are passed to individual functions py placing them into a
+`collections.deque` object and passing that to the function's
+`take_hyperparameters()` method.  Hyperparameters are read from the front of
+the deque. Hyperparameter settings for a function may be read by calling the
+`hyperparameters()` property, which returns a `collections.deque` object.
+
+If a function is an operator, the hyperparameters are distributed to the
+operands functions such that the first operand takes its hyperparameters and
+then the second operand takes its hyperparameters.
+
+For the Gaussian process and model, the mean function's hyperparameters are 
+read first, then those of the covariance function are read.  Gaussian processes
+and models do not have a `take_hyperparameters()` method and they do not consume
+the hyperparameters.  Rather, one just does
+
+    thing.hyperparameters = iterable_of_hyperparameters
+
+The iterable doesn't have to be a deque.  It could be a list or a scipy array.
